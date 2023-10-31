@@ -4,6 +4,7 @@
 # mlrv
 
 <!-- badges: start -->
+
 [![R-CMD-check](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -20,7 +21,7 @@ You can install the development version of mlrv from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Lujia-Bai/mlrv.git")
+devtools::install_github("Lujia-Bai/mlrv")
 ```
 
 ## Example
@@ -63,17 +64,17 @@ hk1 = list()
 hk1$x = hk$x[366:730,]
 hk1$y = hk$y[366:730]
 p1 <- heter_gradient(hk1, setting, mvselect = -2, verbose = T)
-#> [1] "m 31 tau_n 0.374190823993618"
+#> [1] "m 18 tau_n 0.324190823993618"
 #> [1] 10464.35
 #>        V1       
-#>  Min.   : 3206  
-#>  1st Qu.: 6945  
-#>  Median : 8700  
-#>  Mean   : 9116  
-#>  3rd Qu.:10852  
-#>  Max.   :24181
+#>  Min.   : 2067  
+#>  1st Qu.: 4356  
+#>  Median : 5592  
+#>  Mean   : 5993  
+#>  3rd Qu.: 7177  
+#>  Max.   :19020
 p1
-#> [1] 0.287
+#> [1] 0.0438
 ```
 
 One can also use another scheme of MV selection based on the volatility
@@ -82,5 +83,5 @@ of the estimator by setting mvselect = -1.
 ``` r
 p1 <- heter_gradient(hk1, setting, mvselect = -1)
 p1
-#> [1] 0.0068
+#> [1] 0.008
 ```

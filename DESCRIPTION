@@ -4,7 +4,7 @@ Title: Long-Run Variance Estimation in Time Series Regression
 Version: 0.1.0
 Author: Lujia Bai and Weichi Wu
 Maintainer: Lujia Bai <bailujia98@gmail.com>
-Description: Plug-in and debiased difference-based long-run covariance matrix estimation for time series regression. Two applications of hypothesis testing are also provided. The first one is for testing for structural stability in coefficient functions. The second one is aimed at detecting long memory in time series regression. 
+Description: Plug-in and difference-based long-run covariance matrix estimation for time series regression. Two applications of hypothesis testing are also provided. The first one is for testing for structural stability in coefficient functions. The second one is aimed at detecting long memory in time series regression. 
 License: MIT + file LICENSE
 Depends: R (>= 3.1.0)
 Encoding: UTF-8
@@ -15,7 +15,6 @@ Imports:
     magrittr,
     foreach,
     doParallel,
-    RcppArmadillo,
     mathjaxr,
     xtable,
     stats

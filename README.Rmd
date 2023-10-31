@@ -27,7 +27,7 @@ You can install the development version of mlrv from [GitHub](https://github.com
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("Lujia-Bai/mlrv.git")
+devtools::install_github("Lujia-Bai/mlrv")
 ```
 
 ## Example

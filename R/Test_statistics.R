@@ -1,5 +1,5 @@
 #' @useDynLib mlrv,.registration = TRUE
-#' @import Rcpp RcppArmadillo mathjaxr stats doParallel foreach magrittr numDeriv xtable
+#' @import Rcpp mathjaxr stats doParallel foreach magrittr numDeriv xtable
 #' @section mlrv functions:
 #' Heter_LRV, heter_covariate, heter_gradient, gcv_cov, MV_critical
 
