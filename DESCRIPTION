@@ -15,6 +15,7 @@ Imports:
     magrittr,
     foreach,
     doParallel,
+    RcppArmadillo,
     mathjaxr,
     xtable,
     stats
