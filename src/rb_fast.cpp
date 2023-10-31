@@ -207,13 +207,13 @@ arma::mat loc_constant (double bw, arma::vec x, arma::mat y, bool db_kernel = 0)
 //' @name LocLinear
 //' @title Local linear Regression
 //' @description  Local linear estimates for time varying coefficients
-//' @param bw double, bandwith
+//' @param bw double, bandwidth
 //' @param t vector, time, 1:n/n
 //' @param y vector, response series to be tested for long memory in the next step
 //' @param X matrix, covariates matrix
 //' @param db_kernel bool, whether to use jackknife kernel, default 0
 //' @param deriv2 bool,whether to return second-order derivative, default 0
-//' @param scb bool, whether to use the result for futher calculation of simulataneous confidence bands.
+//' @param scb bool, whether to use the result for futher calculation of simultaneous confidence bands.
 //' @return a list of results
 //' \itemize{
 //' \item mu: the estimated trend
@@ -224,7 +224,7 @@ arma::mat loc_constant (double bw, arma::vec x, arma::mat y, bool db_kernel = 0)
 //' \item X: covariates matrox
 //' \item y: response
 //' \item n: sample size
-//' \item p: dimenstion of covariates including the intercept
+//' \item p: dimension of covariates including the intercept
 //' \item invM: inversion of M matrix, when scb = 1
 //' }
 //' @details
@@ -779,7 +779,7 @@ arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
 //' @name Heter_LRV
 //' @title Long-run covariance matrix estimators
 //' @description \loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariante.
-//' @param e, vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the reponse time series, i.e., \mjseqn{y}. Specially, e should also be the reponse time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).
+//' @param e, vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).
 //' @param X, a matrix \mjseqn{n\times p}
 //' @param m, integer, the window size.
 //' @param tau_n, double, the smoothing parameter in the estimator. If tau_n is 0, a rule-of-thumb value will be automatically used.
@@ -1158,15 +1158,15 @@ arma::vec sim_Phi_heter_VS(List data,
 //' @param t vector, scaled time \mjseqn{[0,1]}
 //' @param y vector, response
 //' @param X matrix, covariates matrix
-//' @param verbose bool, whether to print the numeritor and denominator in GCV value
+//' @param verbose bool, whether to print the  numerator and denominator in GCV value
 //' @return GCV value
 //' @details
 //' Generalized cross validation value is defined as
 //' \mjsdeqn{n^{-1}| Y-\hat{Y}|^2/[1- \mathrm{tr}(Q(b)) / n]^2}
 //' When computing \mjseqn{\mathrm{tr}(Q(b))},
-//' we use the fact that the first derivative of coefficient function is zero at centern point
+//' we use the fact that the first derivative of coefficient function is zero at central point
 //' The ith diagonal value of \mjseqn{Q(b)} is actually \mjseqn{x^T(t_i)S^{-1}_{n}x(t_i)}
-//' where \mjseqn{S^{-1}_{n}} means the top left p-dimension sqaure matrix of
+//' where \mjseqn{S^{-1}_{n}} means the top left p-dimension square matrix of
 //'  \mjseqn{S_{n}(t_i) = X^T W(t_i) X}, \mjseqn{W(t_i)} is the kernel weighted matrix. Details on
 //' the computation of \mjseqn{S_n} could be found in \code{LocLinear} and its reference
 // [[Rcpp::export]]
@@ -1233,14 +1233,14 @@ double gcv_cov (double bw,
 //' @export
 //' @name MV_critical
 //' @title Statistics-adapted values for extended minimum volatility selection.
-//' @description  Calulation of the variance of the bootstrap statistics for the extended minimum volatility selection.
+//' @description  Calculation of the variance of the bootstrap statistics for the extended minimum volatility selection.
 //' @param y, vector, as used in the Heter_LRV
 //' @param data, list, a list of data
 //' @param R, a cube of standard.normal random variables.
 //' @param gridm, vector, a grid of candidate m's.
 //' @param gridtau, vector, a grid of candidate tau's.
 //' @param type, integer, 1 KPSS 2 RS 3 VS 4 KS
-//' @param cvalue, double, 1-qunatile for the calculation of bootstrap variance, default 0.1.
+//' @param cvalue, double, 1-quantile for the calculation of bootstrap variance, default 0.1.
 //' @param B, integer, number of iterations for the calculation of bootstrap variance
 //' @param lrvmethod, integer, see also Heter_LRV
 //' @param ind, integer, the type of kernel,  see also Heter_LRV
@@ -1303,7 +1303,7 @@ arma::mat MV_critical(arma::vec y, List data, arma::cube R,
 //' @export
 //' @name MV_ise_heter_critical
 //' @title MV method
-//' @description Selection of smoothing parameters for bootstrap tests by choosing the index minimizing the volatility of bootstrap statistics or long-run variance estimators in the neibourhood computed before.
+//' @description Selection of smoothing parameters for bootstrap tests by choosing the index minimizing the volatility of bootstrap statistics or long-run variance estimators in the neighborhood computed before.
 //' @param critical, a matrix of critical values
 //' @param neighbour, integer, number of neighbours
 //' @return a list of results,
