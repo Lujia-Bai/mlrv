@@ -252,6 +252,7 @@ rule_of_thumb<-function(y, x,
   t = (1:n)/n
   result1 = LocLinear(bw, t, y, x, deriv2 = 1)
   result2 = LocLinear(bw/sqrt(2), t, y, x)
+  i = NULL
 
   sigma = Diff1(y, x, m, tau_n)
   if(p > 1){

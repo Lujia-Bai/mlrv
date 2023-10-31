@@ -4,8 +4,6 @@
 # mlrv
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/Lujia-Bai/mlrv.gitt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv.git/actions/workflows/R-CMD-check.yaml)
 [![R-CMD-check](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
