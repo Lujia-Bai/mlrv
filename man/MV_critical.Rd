@@ -31,7 +31,7 @@ MV_critical(
 
 \item{type, }{integer, 1 KPSS 2 RS 3 VS 4 KS}
 
-\item{cvalue, }{double, 1-qunatile for the calculation of bootstrap variance, default 0.1.}
+\item{cvalue, }{double, 1-quantile for the calculation of bootstrap variance, default 0.1.}
 
 \item{B, }{integer, number of iterations for the calculation of bootstrap variance}
 
@@ -45,7 +45,7 @@ MV_critical(
 matrix of critical values
 }
 \description{
-Calulation of the variance of the bootstrap statistics for the extended minimum volatility selection.
+Calculation of the variance of the bootstrap statistics for the extended minimum volatility selection.
 }
 \references{
 #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli

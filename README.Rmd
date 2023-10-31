@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Lujia-Bai/mlrv.gitt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv.git/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of mlrv is to provide plug-in and debiased difference-based long-run covariance matrix estimation for time series regression. Two applications of hypothesis testing are also provided. The first one is for testing for structural stability in coefficient functions. The second one is aimed at detecting long memory in time series regression. 

@@ -20,7 +20,7 @@ a list of results,
 }
 }
 \description{
-Selection of smoothing parameters for bootstrap tests by choosing the index minimizing the volatility of bootstrap statistics or long-run variance estimators in the neibourhood computed before.
+Selection of smoothing parameters for bootstrap tests by choosing the index minimizing the volatility of bootstrap statistics or long-run variance estimators in the neighborhood computed before.
 }
 \references{
 #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli

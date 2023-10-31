@@ -16,7 +16,7 @@ Heter_LRV(
 )
 }
 \arguments{
-\item{e, }{vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the reponse time series, i.e., \mjseqn{y}. Specially, e should also be the reponse time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).}
+\item{e, }{vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).}
 
 \item{X, }{a matrix \mjseqn{n\times p}}
 

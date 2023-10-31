@@ -15,7 +15,7 @@ gcv_cov(bw, t, y, X, verbose = 1L)
 
 \item{X}{matrix, covariates matrix}
 
-\item{verbose}{bool, whether to print the numeritor and denominator in GCV value}
+\item{verbose}{bool, whether to print the  numerator and denominator in GCV value}
 }
 \value{
 GCV value
@@ -24,12 +24,12 @@ GCV value
 Given a bandwidth, compute its corresponding GCV value \loadmathjax
 }
 \details{
-Generalized cross validation value is defined as \loadmathjax
+Generalized cross validation value is defined as
 \mjsdeqn{n^{-1}| Y-\hat{Y}|^2/[1- \mathrm{tr}(Q(b)) / n]^2}
 When computing \mjseqn{\mathrm{tr}(Q(b))},
-we use the fact that the first derivative of coefficient function is zero at centern point
+we use the fact that the first derivative of coefficient function is zero at central point
 The ith diagonal value of \mjseqn{Q(b)} is actually \mjseqn{x^T(t_i)S^{-1}_{n}x(t_i)}
-where \mjseqn{S^{-1}_{n}} means the top left p-dimension sqaure matrix of
+where \mjseqn{S^{-1}_{n}} means the top left p-dimension square matrix of
 \mjseqn{S_{n}(t_i) = X^T W(t_i) X}, \mjseqn{W(t_i)} is the kernel weighted matrix. Details on
 the computation of \mjseqn{S_n} could be found in \code{LocLinear} and its reference
 }

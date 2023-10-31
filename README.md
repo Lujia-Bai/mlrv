@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Lujia-Bai/mlrv.gitt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv.git/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lujia-Bai/mlrv/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of mlrv is to provide plug-in and debiased difference-based
@@ -64,17 +65,17 @@ hk1 = list()
 hk1$x = hk$x[366:730,]
 hk1$y = hk$y[366:730]
 p1 <- heter_gradient(hk1, setting, mvselect = -2, verbose = T)
-#> [1] "m 23 tau_n 0.374190823993618"
+#> [1] "m 31 tau_n 0.374190823993618"
 #> [1] 10464.35
 #>        V1       
-#>  Min.   : 2058  
-#>  1st Qu.: 4428  
-#>  Median : 5655  
-#>  Mean   : 6082  
-#>  3rd Qu.: 7271  
-#>  Max.   :17886
+#>  Min.   : 3206  
+#>  1st Qu.: 6945  
+#>  Median : 8700  
+#>  Mean   : 9116  
+#>  3rd Qu.:10852  
+#>  Max.   :24181
 p1
-#> [1] 0.0484
+#> [1] 0.287
 ```
 
 One can also use another scheme of MV selection based on the volatility
@@ -83,5 +84,5 @@ of the estimator by setting mvselect = -1.
 ``` r
 p1 <- heter_gradient(hk1, setting, mvselect = -1)
 p1
-#> [1] 0.0066
+#> [1] 0.0068
 ```

@@ -7,7 +7,7 @@
 LocLinear(bw, t, y, X, db_kernel = 0L, deriv2 = 0L, scb = 0L)
 }
 \arguments{
-\item{bw}{double, bandwith}
+\item{bw}{double, bandwidth}
 
 \item{t}{vector, time, 1:n/n}
 
@@ -19,7 +19,7 @@ LocLinear(bw, t, y, X, db_kernel = 0L, deriv2 = 0L, scb = 0L)
 
 \item{deriv2}{bool,whether to return second-order derivative, default 0}
 
-\item{scb}{bool, whether to use the result for futher calculation of simulataneous confidence bands.}
+\item{scb}{bool, whether to use the result for futher calculation of simultaneous confidence bands.}
 }
 \value{
 a list of results
@@ -32,7 +32,7 @@ a list of results
 \item X: covariates matrox
 \item y: response
 \item n: sample size
-\item p: dimenstion of covariates including the intercept
+\item p: dimension of covariates including the intercept
 \item invM: inversion of M matrix, when scb = 1
 }
 }
