@@ -33,3 +33,11 @@ where \mjseqn{S^{-1}_{n}} means the top left p-dimension square matrix of
 \mjseqn{S_{n}(t_i) = X^T W(t_i) X}, \mjseqn{W(t_i)} is the kernel weighted matrix. Details on
 the computation of \mjseqn{S_n} could be found in \code{LocLinear} and its reference
 }
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+ tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+  ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+   cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+data = Qct_reg(1000, param)
+value <- gcv_cov(0.2, (1:1000)/1000, data$y, data$x)
+}

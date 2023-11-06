@@ -8,4 +8,13 @@
 \description{
 Plug-in and difference-based long-run covariance matrix estimation for time series regression. Two applications of hypothesis testing are also provided. The first one is for testing for structural stability in coefficient functions. The second one is aimed at detecting long memory in time series regression.
 }
+\author{
+\strong{Maintainer}: Lujia Bai \email{bailujia98@gmail.com}
+
+Other contributors:
+\itemize{
+  \item Weichi Wu \email{wuweichi@mail.tsinghua.edu.cn} [contributor]
+}
+
+}
 \keyword{internal}

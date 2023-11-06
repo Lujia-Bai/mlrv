@@ -19,3 +19,11 @@ list, a list of data, covariates, response and errors.(before and after fraction
 \description{
 Simulate data from time-varying time series regression model
 }
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+n = 500
+data = Qct_reg(n, param)
+}

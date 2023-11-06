@@ -23,3 +23,7 @@ a vector of non-stationary time series
 \description{
 Simulate data from time-varying trend model
 }
+\examples{
+param = list(d = -0.2,  tvd = 0, tw = 0.8, rate = 0.1, center = 0.3, ma_rate =  0, cur = 1)
+data = Qt_data(300, param)
+}

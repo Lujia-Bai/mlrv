@@ -47,6 +47,22 @@ matrix of critical values
 \description{
 Calculation of the variance of the bootstrap statistics for the extended minimum volatility selection.
 }
+\examples{
+###with Long memory parameter 0.2
+param = list(d = -0.2, heter = 2,
+ tvd = 0, tw = 0.8, rate = 0.1, cur = 1,
+  center = 0.3, ma_rate =  0, cov_tw =  0.2,
+  cov_rate = 0.1, cov_center = 0.1,
+  all_tw  = 1, cov_trend = 0.7)
+n = 1000
+data = Qct_reg(n, param)
+p = ncol(data$x)
+t = (1:n)/n
+B_c = 100 ##small value for testing
+Rc = array(rnorm(n*p*B_c),dim = c(p,B_c,n))
+result1 = LocLinear(0.2, t, data$y, data$x)
+critical <- MV_critical(data$y, result1, Rc, c(3,4,5), c(0.2, 0.25, 0.3))
+}
 \references{
 #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 }

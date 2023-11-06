@@ -44,6 +44,16 @@ The time varying coefficients are estimated by
 \mjsdeqn{(\hat{\boldsymbol{\beta}}_{b_{n}}(t), \hat{\boldsymbol{\beta}}_{b_{n}}^{\prime}(t)) = \mathbf{arg min}_{\eta_{0},\eta_{1}}[\sum_{i=1}^{n}\{y_{i}-\mathbf{x}_{i}^{\mathrm{T}}\eta_{0}-\mathbf{x}_{i}^{\mathrm{T}} \eta_{1}(t_{i}-t)\}^{2} \boldsymbol{K}_{b_{n}}(t_{i}-t)]}
 where beta0 is \mjseqn{\hat{\boldsymbol{\beta}}_{b_{n}}(t)}, mu is \mjseqn{X^T \hat{\boldsymbol{\beta}}_{b_{n}}(t)}
 }
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+ tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+  ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+   cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+n = 500
+t = (1:n)/n
+data = Qct_reg(n, param)
+result = LocLinear(0.2, t, data$y, data$x)
+}
 \references{
 Zhou, Z., & Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 72(4), 513-531.
 }

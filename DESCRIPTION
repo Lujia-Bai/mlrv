@@ -2,8 +2,13 @@ Package: mlrv
 Type: Package
 Title: Long-Run Variance Estimation in Time Series Regression
 Version: 0.1.0
-Author: Lujia Bai and Weichi Wu
-Maintainer: Lujia Bai <bailujia98@gmail.com>
+Authors@R: c(person(given = "Lujia", 
+         family = "Bai",
+         role = c("aut", "cre"), 
+         email = "bailujia98@gmail.com"), person(given = "Weichi",
+       family = "Wu",
+       role = c("ctb"),
+       email = "wuweichi@mail.tsinghua.edu.cn"))
 Description: Plug-in and difference-based long-run covariance matrix estimation for time series regression. Two applications of hypothesis testing are also provided. The first one is for testing for structural stability in coefficient functions. The second one is aimed at detecting long memory in time series regression. 
 License: MIT + file LICENSE
 Depends: R (>= 3.1.0)
@@ -26,6 +31,8 @@ RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 RdMacros: mathjaxr
+Config/testthat/edition: 3

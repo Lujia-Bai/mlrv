@@ -43,6 +43,16 @@ param
 \item 5 Tricube  \mjseqn{70/81(1 - |u|^{3})^{3}}, \mjseqn{u \le 1}
 }
 }
+\examples{
+# choose a small B for tests
+param = list(B = 50, bw_set = c(0.15, 0.25), gcv =1, neighbour = 1, lb = 10, ub = 20, type = 0)
+n = 300
+data = bregress2(n, 2, 1) # time series regression model with 2 changes points
+param$lrvmethod = 0 # plug-in
+heter_gradient(data, param, 4, 1)
+param$lrvmethod = 1 # difference based
+heter_gradient(data, param, 4, 1)
+}
 \references{
 Bai, L., and Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
 

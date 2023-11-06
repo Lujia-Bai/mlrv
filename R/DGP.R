@@ -71,6 +71,9 @@ Qtvtrend<-function(T_n,cur = 1){
 #' \item ma_rate double, ma coefficient
 #' }
 #' @return a vector of non-stationary time series
+#' @examples
+#' param = list(d = -0.2,  tvd = 0, tw = 0.8, rate = 0.1, center = 0.3, ma_rate =  0, cur = 1)
+#' data = Qt_data(300, param)
 #' @export
 Qt_data<-function(T_n,param)
 {
@@ -165,6 +168,13 @@ tvgarch11<-function (T_n, a , b, rnd = rnorm, ntrans = 200, ...){
 #' @param param list, a list of parameters
 #' @param type type = 1 means the long memory expansion begins from its infinte past, type = 2 means the long memory expansion begins from t = 0
 #' @return list, a list of data, covariates, response and errors.(before and after fractional difference)
+#' @examples
+#' param = list(d = -0.2, heter = 2, tvd = 0,
+#' tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+#' ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+#' cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+#' n = 500
+#' data = Qct_reg(n, param)
 #' @export
 Qct_reg<-function(T_n, param, type = 1){
   # type = 1 means the long memory expansion begins from its infinte past
@@ -360,7 +370,10 @@ lserror <-function(nn, type = "norm"){
 #' @param cp number of change points. If cp is between 0 and 1, it specifies the location of the single change point
 #' @param delta double, magnitude of the jump
 #' @param type type of distributions of the innovations, default normal. It can also be "t4", "t5" and "t6".
-#' @return a list of data, covariates, reponse and the error,
+#' @return a list of data, x covariates, y reponse and e error.
+#' @examples
+#' n = 300
+#' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 #' @export
 bregress2<-function(nn, cp = 0, delta = 0, type="norm"){
 

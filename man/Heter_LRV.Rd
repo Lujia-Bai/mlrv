@@ -35,12 +35,26 @@ Heter_LRV(
 \item 5 Tricube  \mjseqn{70/81(1-|u|^{3})^{3}}, \mjseqn{u \le 1}
 }}
 
-\item{print_deg, }{bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}{}}
+\item{print_deg, }{bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}}
 
 \item{rescale, }{bool, whether to use rescaling to correct the negative eigenvalues, default 0}
 }
+\value{
+a cube. The time-varying long-run covariance matrix \mjseqn{p \times p \times n}, where \eqn{p} is the dimension of the time series vector, and \eqn{n} is the sample size.
+}
 \description{
 \loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariante.
+}
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+data = Qct_reg(1000, param)
+sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
+}
+\references{
+Bai, L., & Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
 
 Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 }

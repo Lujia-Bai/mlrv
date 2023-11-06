@@ -17,11 +17,18 @@ sim_T(X, t, sigma, m, B, type = 0L)
 
 \item{B, }{int, number of iteration}
 
-\item{type}{type of tests, residual-based or coefficient-based}
+\item{type, }{type of tests, residual-based or coefficient-based}
 }
 \value{
-a vector of bootstrap statistic
+a vector of bootstrap statistics
 }
 \description{
 bootstrap distribution of the gradient based structural stability test
+}
+\examples{
+param = list(B = 50, bw_set = c(0.15, 0.25), gcv =1, neighbour = 1, lb = 10, ub = 20, type = 0)
+n = 300
+data = bregress2(n, 2, 1) # time series regression model with 2 changes points
+sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
+bootstrap = sim_T(data$x, (1:n)/n, sigma, 3, 20) ### 20 iterations
 }

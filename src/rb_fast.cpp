@@ -173,8 +173,14 @@ arma::vec locLinSmootherC (double bw, int n, arma::vec x, arma::vec y, bool db_k
 //' @param bw, double, bandwidth, between 0 and 1.
 //' @param x, vector, covariates
 //' @param y, matrix, response variables
-//' @param db_kernel, bool, whether to use jackknife kernel, default 0,
+//' @param db_kernel, bool, whether to use jackknife kernel, default 0
 //' @return a matrix of smoothed values
+//' @examples
+//' n <- 800
+//' p <- 3
+//' t <- (1:n)/n
+//' V <-  matrix(rnorm(n * p), nrow = p)
+//' V3 <- loc_constant(0.2, t, V,1)
 // [[Rcpp::export]]
 arma::mat loc_constant (double bw, arma::vec x, arma::mat y, bool db_kernel = 0){
   //int n = y.size();
@@ -231,6 +237,15 @@ arma::mat loc_constant (double bw, arma::vec x, arma::mat y, bool db_kernel = 0)
 //' The time varying coefficients are estimated by
 //' \mjsdeqn{(\hat{\boldsymbol{\beta}}_{b_{n}}(t), \hat{\boldsymbol{\beta}}_{b_{n}}^{\prime}(t)) = \mathbf{arg min}_{\eta_{0},\eta_{1}}[\sum_{i=1}^{n}\{y_{i}-\mathbf{x}_{i}^{\mathrm{T}}\eta_{0}-\mathbf{x}_{i}^{\mathrm{T}} \eta_{1}(t_{i}-t)\}^{2} \boldsymbol{K}_{b_{n}}(t_{i}-t)]}
 //' where beta0 is \mjseqn{\hat{\boldsymbol{\beta}}_{b_{n}}(t)}, mu is \mjseqn{X^T \hat{\boldsymbol{\beta}}_{b_{n}}(t)}
+//' @examples
+//' param = list(d = -0.2, heter = 2, tvd = 0,
+//'  tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+//'   ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+//'    cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+//' n = 500
+//' t = (1:n)/n
+//' data = Qct_reg(n, param)
+//' result = LocLinear(0.2, t, data$y, data$x)
 //' @references
 //' Zhou, Z., & Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 72(4), 513-531.
 // [[Rcpp::export]]
@@ -419,10 +434,16 @@ arma::mat LocLinear_B( double bw,
 //' @param sigma, a cube of long-run covariance function.
 //' @param m, int value of window size
 //' @param B, int, number of iteration
-//' @param type type of tests, residual-based or coefficient-based
-//' @return a vector of bootstrap statistic
+//' @param type, type of tests, residual-based or coefficient-based
+//' @examples
+//' param = list(B = 50, bw_set = c(0.15, 0.25), gcv =1, neighbour = 1, lb = 10, ub = 20, type = 0)
+//' n = 300
+//' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
+//' sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
+//' bootstrap = sim_T(data$x, (1:n)/n, sigma, 3, 20) ### 20 iterations
+//' @return a vector of bootstrap statistics
 // [[Rcpp::export]]
-arma::vec sim_T(arma::mat X,  arma::vec t,arma::cube sigma, int m,  int B, int type =0){
+arma::vec sim_T(arma::mat X,  arma::vec t, arma::cube sigma, int m,  int B, int type =0){
   //type 0 res
   //type 1 coef
   int n = X.n_rows;
@@ -790,9 +811,17 @@ arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
 //'* 3 Quartic \mjseqn{15/16(1-u^{2})^{2}}, \mjseqn{u \le 1}
 //'* 4 Triweight \mjseqn{35/32(1-u^{2})^{3}}, \mjseqn{u \le 1}
 //'* 5 Tricube  \mjseqn{70/81(1-|u|^{3})^{3}}, \mjseqn{u \le 1}
-//' @param print_deg, bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}{}
+//' @param print_deg, bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}
 //' @param rescale, bool, whether to use rescaling to correct the negative eigenvalues, default 0
- //'@references
+//' @return a cube. The time-varying long-run covariance matrix \mjseqn{p \times p \times n}, where \eqn{p} is the dimension of the time series vector, and \eqn{n} is the sample size.
+//' @examples
+//' param = list(d = -0.2, heter = 2, tvd = 0,
+//' tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+//' ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+//' cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+//' data = Qct_reg(1000, param)
+//' sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
+//' @references
 //' Bai, L., & Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
 //'
 //' Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
@@ -1160,6 +1189,13 @@ arma::vec sim_Phi_heter_VS(List data,
 //' @param X matrix, covariates matrix
 //' @param verbose bool, whether to print the  numerator and denominator in GCV value
 //' @return GCV value
+//' @examples
+//' param = list(d = -0.2, heter = 2, tvd = 0,
+//'  tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+//'   ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+//'    cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+//' data = Qct_reg(1000, param)
+//' value <- gcv_cov(0.2, (1:1000)/1000, data$y, data$x)
 //' @details
 //' Generalized cross validation value is defined as
 //' \mjsdeqn{n^{-1}| Y-\hat{Y}|^2/[1- \mathrm{tr}(Q(b)) / n]^2}
@@ -1247,6 +1283,21 @@ double gcv_cov (double bw,
 //' @param rescale, bool, whether to rescale when positiveness of the matrix is not obtained. default 0
 //' @seealso Heter_LRV
 //' @return matrix of critical values
+//' @examples
+//' ###with Long memory parameter 0.2
+//' param = list(d = -0.2, heter = 2,
+//'  tvd = 0, tw = 0.8, rate = 0.1, cur = 1,
+//'   center = 0.3, ma_rate =  0, cov_tw =  0.2,
+//'   cov_rate = 0.1, cov_center = 0.1,
+//'   all_tw  = 1, cov_trend = 0.7)
+//' n = 1000
+//' data = Qct_reg(n, param)
+//' p = ncol(data$x)
+//' t = (1:n)/n
+//' B_c = 100 ##small value for testing
+//' Rc = array(rnorm(n*p*B_c),dim = c(p,B_c,n))
+//' result1 = LocLinear(0.2, t, data$y, data$x)
+//' critical <- MV_critical(data$y, result1, Rc, c(3,4,5), c(0.2, 0.25, 0.3))
 //' @references #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 // [[Rcpp::export]]
 arma::mat MV_critical(arma::vec y, List data, arma::cube R,
@@ -1312,7 +1363,26 @@ arma::mat MV_critical(arma::vec y, List data, arma::cube R,
 //' \item minq: optimal column number
 //' \item min_ise: optimal value
 //' }
-//' @references #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+//' @examples
+//' param = list(d = -0.2, heter = 2,
+//'  tvd = 0, tw = 0.8, rate = 0.1,
+//'  cur = 1, center = 0.3, ma_rate =  0,
+//'  cov_tw =  0.2, cov_rate = 0.1,
+//'  cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+//' n = 1000
+//' data = Qct_reg(n, param)
+//' p = ncol(data$x)
+//' t = (1:n)/n
+//' B_c = 100 ##small value for testing
+//' Rc = array(rnorm(n*p*B_c),dim = c(p,B_c,n))
+//' result1 = LocLinear(0.2, t, data$y, data$x)
+//' gridm = c(3,4,5)
+//' gridtau = c(0.2, 0.25, 0.3)
+//' critical <- MV_critical(data$y, result1, Rc, gridm, gridtau)
+//' mv_result = MV_ise_heter_critical(critical,  1)
+//' m = gridm[mv_result$minp + 1]
+//' tau_n = gridtau[mv_result$minq + 1]
+//' @references  Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 // [[Rcpp::export]]
 List MV_ise_heter_critical(arma::mat critical, int neighbour)
 {
@@ -1575,10 +1645,26 @@ arma::cube MV_cov_heter(arma::vec e, arma::mat X,
 
 
 //' @export
- //' @name MV_critical_cp
-// //' @title bandwidth selection
-// //' @description  bandwidth selection for bootstrap tests for change point tests
- // [[Rcpp::export]]
+//' @name MV_critical_cp
+//' @title Statistics-adapted values for extended minimum volatility selection.
+//' @description  Smoothing parameter selection for bootstrap tests for change point tests
+//' @param y, vector, as used in the Heter_LRV
+//' @param X, matrix, covariates
+//' @param t, vector, time points.
+//' @param gridm, vector, a grid of candidate m's.
+//' @param gridtau, vector, a grid of candidate tau's.
+//' @param cvalue, double, 1-quantile for the calculation of bootstrap variance, default 0.1.
+//' @param B, integer, number of iterations for the calculation of bootstrap variance
+//' @param lrvmethod, integer, see also Heter_LRV
+//' @param ind, integer, the type of kernel,  see also Heter_LRV
+//' @param rescale, bool, whether to rescale when positiveness of the matrix is not obtained. default 0
+//' @examples
+//' n = 300
+//' t = (1:n)/n
+//' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
+//' critical = MV_critical_cp(data$y, data$x,t,  c(3,4,5), c(0.2,0.25, 0.3))
+//' @references  Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+// [[Rcpp::export]]
  arma::mat MV_critical_cp(arma::vec y, arma::mat X, arma::vec t,
                           arma::vec gridm,
                           arma::vec  gridtau,

@@ -30,8 +30,16 @@ lrv_measure(
 \item{mode}{default "mse", It can be set as "bias".}
 }
 \value{
-empirical MSE of the estimator,
+empirical MSE of the estimator.
 }
 \description{
 Comparing bias or mse of lrv estimators based on numerical methods
+}
+\examples{
+n = 300
+param = list(gcv = 1, neighbour = 1,lb = 6, ub = 13, ind = 2)    # covariates heterskadecity
+data = bregress2(n, 2, 1) # with 2 change pointa
+lrv_measure(data, param, lrvmethod = -1, mvselect = -2) #ols plug-in
+#debiased difference-based
+lrv_measure(data, param, lrvmethod = 1, mvselect = -2)
 }

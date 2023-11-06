@@ -7,7 +7,7 @@
 heter_covariate(
   data,
   param = list(B = 2000, lrvmethod = 1, gcv = 1, neighbour = 1, lb = 3, ub = 11, tau_n =
-    0.3, type = 1),
+    0.3, type = "KPSS"),
   mvselect = -1,
   bw = 0.2,
   shift = 1,
@@ -47,7 +47,7 @@ param
 \item ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 \item bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
 \item tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-1/5}} will be used
-\item type, 1,2,3,4 corresponding to "KPSS","RS","VS","KS" type of tests, see  Bai and Wu (2023a).
+\item type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
 \item ind,  types of kernels
 \item 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 \item 2 Epanechnikov kernel \mjseqn{3/4(1 - u^{2})}, \mjseqn{u \le 1}
@@ -61,6 +61,16 @@ param
 Heter_LRV, heter_covariate, heter_gradient, gcv_cov, MV_critical
 }
 
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+ tw = 0.8, rate = 0.1, cur = 1,
+ center = 0.3, ma_rate =  0, cov_tw =  0.2,
+ cov_rate = 0.1, cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+data = Qct_reg(1000, param)
+### KPSS test B
+heter_covariate(data, list(B=20, lrvmethod = 1,
+gcv = 1, neighbour = 1, lb = 3, ub = 11, type = "KPSS"), mvselect = -2, verbose_dist = TRUE)
+}
 \references{
 Bai, L., and Wu, W. (2023a). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 

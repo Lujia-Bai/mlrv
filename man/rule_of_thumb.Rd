@@ -21,7 +21,15 @@ rule_of_thumb(y, x, m = floor(n^(4/15)), tau_n = n^(-5/29), bw = n^(-1/5))
 c(left, right), the vector with the left and right points of the interval
 }
 \description{
-The funtion will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
+The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
+}
+\examples{
+param = list(d = -0.2, heter = 2, tvd = 0,
+tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+ ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+ cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+data = Qct_reg(1000, param)
+rule_of_thumb(data$y, data$x)
 }
 \references{
 Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli

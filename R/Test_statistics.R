@@ -1,5 +1,5 @@
 #' @useDynLib mlrv,.registration = TRUE
-#' @import Rcpp mathjaxr stats doParallel foreach magrittr numDeriv xtable
+#' @import Rcpp RcppArmadillo mathjaxr stats doParallel foreach magrittr numDeriv xtable
 #' @section mlrv functions:
 #' Heter_LRV, heter_covariate, heter_gradient, gcv_cov, MV_critical
 
@@ -21,7 +21,7 @@
 #'* ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 #'* bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
 #'* tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-1/5}} will be used
-#'* type, 1,2,3,4 corresponding to "KPSS","RS","VS","KS" type of tests, see  Bai and Wu (2023a).
+#'* type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
 #'* ind,  types of kernels
 #'* 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 #'* 2 Epanechnikov kernel \mjseqn{3/4(1 - u^{2})}, \mjseqn{u \le 1}
@@ -29,6 +29,15 @@
 #'* 4 Triweight \mjseqn{35/32(1 - u^{2})^{3}}, \mjseqn{u \le 1}
 #'* 5 Tricube  \mjseqn{70/81(1 - |u|^{3})^{3}}, \mjseqn{u \le 1}
 #' @return p-value of the long memory test
+#' @examples
+#' param = list(d = -0.2, heter = 2, tvd = 0,
+#'  tw = 0.8, rate = 0.1, cur = 1,
+#'  center = 0.3, ma_rate =  0, cov_tw =  0.2,
+#'  cov_rate = 0.1, cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+#' data = Qct_reg(1000, param)
+#' ### KPSS test B
+#' heter_covariate(data, list(B=20, lrvmethod = 1,
+#' gcv = 1, neighbour = 1, lb = 3, ub = 11, type = "KPSS"), mvselect = -2, verbose_dist = TRUE)
 #' @references
 #' Bai, L., and Wu, W. (2023a). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 #'
@@ -39,7 +48,7 @@
 #' Politis, D. N., Romano, J. P., and Wolf, M. (1999). Subsampling. Springer Science & Business Media.
 #'
 #' @export
-heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neighbour = 1, lb = 3, ub = 11, tau_n = 0.3, type = 1), mvselect = -1, bw= 0.2, shift = 1,
+heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neighbour = 1, lb = 3, ub = 11, tau_n = 0.3, type = "KPSS"), mvselect = -1, bw= 0.2, shift = 1,
                            verbose_dist = FALSE, hyper = FALSE){
   if("B" %in% names(param)){
     B = param$B
@@ -71,7 +80,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
   if("type" %in% names(param)){
     type = param$type
   }else{
-    type = 1
+    type = "KPSS"
   }
 
   if("ind" %in% names(param)){
@@ -221,8 +230,9 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
     if(verbose_dist){
       print(paste("gcv",bw))
       print(paste("m",m,"tau_n",tau_n))
-      print(eta)
+      print(paste("test statistic:", eta))
       #print(summary(KPSS_dist_new))
+      print("Bootstrap distribution")
       print(summary(STAT_dist))
     }
     pvalue = sum(STAT_dist >= eta)/B
@@ -232,14 +242,22 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 
 
 #' @title rule of thumb interval for the selection of smoothing parameter b
-#' @description The funtion will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
+#' @description The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
 #' @param y a vector, the response variable.
 #' @param x a matrix of covariates. If the intercept should be includes, the elements of the first column should be 1.
 #' @param m a number, a rule-of-thumb and pilot choice of \eqn{m}.
 #' @param tau_n a number, a rule-of-thumb and pilot choice of \mjseqn{\tau_n}.
 #' @param bw a number, a rule-of-thumb and pilot choice of \mjseqn{b_n}.
 #' @return c(left, right), the vector with the left and right points of the interval
+#' @examples
+#' param = list(d = -0.2, heter = 2, tvd = 0,
+#' tw = 0.8, rate = 0.1, cur = 1, center = 0.3,
+#'  ma_rate =  0, cov_tw =  0.2, cov_rate = 0.1,
+#'  cov_center = 0.1, all_tw  = 1, cov_trend = 0.7)
+#' data = Qct_reg(1000, param)
+#' rule_of_thumb(data$y, data$x)
 #' @references
+#'
 #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 #' @export
 rule_of_thumb<-function(y, x,
@@ -309,6 +327,15 @@ rule_of_thumb<-function(y, x,
 #'* 4 Triweight \mjseqn{35/32(1 - u^{2})^{3}}, \mjseqn{u \le 1}
 #'* 5 Tricube  \mjseqn{70/81(1 - |u|^{3})^{3}}, \mjseqn{u \le 1}
 #' @return p-value of the structural stability test
+#' @examples
+#' # choose a small B for tests
+#' param = list(B = 50, bw_set = c(0.15, 0.25), gcv =1, neighbour = 1, lb = 10, ub = 20, type = 0)
+#' n = 300
+#' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
+#' param$lrvmethod = 0 # plug-in
+#' heter_gradient(data, param, 4, 1)
+#' param$lrvmethod = 1 # difference based
+#' heter_gradient(data, param, 4, 1)
 #' @references
 #' Bai, L., and Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
 #'
@@ -496,7 +523,14 @@ heter_gradient <- function(data, param, mvselect = -1, verbose_dist = FALSE, hyp
 #' @param tau double, value of tau. If tau is 0, a rule-of-thunk value will be applied
 #' @param verbose_dist bool, whether to output distributional information
 #' @param mode default "mse", It can be set as "bias".
-#' @return empirical MSE of the estimator,
+#' @return empirical MSE of the estimator.
+#' @examples
+#' n = 300
+#' param = list(gcv = 1, neighbour = 1,lb = 6, ub = 13, ind = 2)    # covariates heterskadecity
+#' data = bregress2(n, 2, 1) # with 2 change pointa
+#' lrv_measure(data, param, lrvmethod = -1, mvselect = -2) #ols plug-in
+#' #debiased difference-based
+#' lrv_measure(data, param, lrvmethod = 1, mvselect = -2)
 #' @export
 lrv_measure <- function(data, param, lrvmethod, mvselect = -1, tau = 0, verbose_dist = FALSE, mode = "mse"){
   B = param$B

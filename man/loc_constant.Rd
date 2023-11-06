@@ -13,11 +13,18 @@ loc_constant(bw, x, y, db_kernel = 0L)
 
 \item{y, }{matrix, response variables}
 
-\item{db_kernel, }{bool, whether to use jackknife kernel, default 0,}
+\item{db_kernel, }{bool, whether to use jackknife kernel, default 0}
 }
 \value{
 a matrix of smoothed values
 }
 \description{
 Nonparametric smoothing
+}
+\examples{
+n <- 800
+p <- 3
+t <- (1:n)/n
+V <-  matrix(rnorm(n * p), nrow = p)
+V3 <- loc_constant(0.2, t, V,1)
 }
