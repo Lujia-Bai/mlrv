@@ -43,7 +43,7 @@ Heter_LRV(
 a cube. The time-varying long-run covariance matrix \mjseqn{p \times p \times n}, where \eqn{p} is the dimension of the time series vector, and \eqn{n} is the sample size.
 }
 \description{
-\loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariante.
+\loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariates.
 }
 \examples{
 param = list(d = -0.2, heter = 2, tvd = 0,

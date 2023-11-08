@@ -42,7 +42,7 @@ MV_critical(
 \item{rescale, }{bool, whether to rescale when positiveness of the matrix is not obtained. default 0}
 }
 \value{
-matrix of critical values
+a matrix of critical values
 }
 \description{
 Calculation of the variance of the bootstrap statistics for the extended minimum volatility selection.

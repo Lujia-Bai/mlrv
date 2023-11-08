@@ -166,7 +166,7 @@ tvgarch11<-function (T_n, a , b, rnd = rnorm, ntrans = 200, ...){
 #' @title Simulate data from time-varying time series regression model
 #' @param T_n int, sample size
 #' @param param list, a list of parameters
-#' @param type type = 1 means the long memory expansion begins from its infinte past, type = 2 means the long memory expansion begins from t = 0
+#' @param type type = 1 means the long memory expansion begins from its infinite past, type = 2 means the long memory expansion begins from t = 0
 #' @return list, a list of data, covariates, response and errors.(before and after fractional difference)
 #' @examples
 #' param = list(d = -0.2, heter = 2, tvd = 0,
@@ -370,8 +370,7 @@ lserror <-function(nn, type = "norm"){
 #' @param cp number of change points. If cp is between 0 and 1, it specifies the location of the single change point
 #' @param delta double, magnitude of the jump
 #' @param type type of distributions of the innovations, default normal. It can also be "t4", "t5" and "t6".
-#' @return a list of data, x covariates, y reponse and e error.
-#' @examples
+#' @return a list of data, x covariates, y response and e error.
 #' n = 300
 #' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 #' @export

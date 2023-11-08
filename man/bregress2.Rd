@@ -16,12 +16,10 @@ bregress2(nn, cp = 0, delta = 0, type = "norm")
 \item{type}{type of distributions of the innovations, default normal. It can also be "t4", "t5" and "t6".}
 }
 \value{
-a list of data, x covariates, y reponse and e error.
+a list of data, x covariates, y response and e error.
+n = 300
+data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 }
 \description{
 Simulate data from time-varying time series regression model with change points
-}
-\examples{
-n = 300
-data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 }

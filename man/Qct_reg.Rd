@@ -11,7 +11,7 @@ Qct_reg(T_n, param, type = 1)
 
 \item{param}{list, a list of parameters}
 
-\item{type}{type = 1 means the long memory expansion begins from its infinte past, type = 2 means the long memory expansion begins from t = 0}
+\item{type}{type = 1 means the long memory expansion begins from its infinite past, type = 2 means the long memory expansion begins from t = 0}
 }
 \value{
 list, a list of data, covariates, response and errors.(before and after fractional difference)

@@ -29,7 +29,7 @@ loc_constant <- function(bw, x, y, db_kernel = 0L) {
 #' @param X matrix, covariates matrix
 #' @param db_kernel bool, whether to use jackknife kernel, default 0
 #' @param deriv2 bool,whether to return second-order derivative, default 0
-#' @param scb bool, whether to use the result for futher calculation of simultaneous confidence bands.
+#' @param scb bool, whether to use the result for further calculation of simultaneous confidence bands.
 #' @return a list of results
 #' \itemize{
 #' \item mu: the estimated trend
@@ -37,7 +37,7 @@ loc_constant <- function(bw, x, y, db_kernel = 0L) {
 #' \item X_reg: a matrix whose j'th row is \mjseqn{x_j^T\hat{M}(t_j)}
 #' \item t: 1:n/n
 #' \item bw: bandwidth used
-#' \item X: covariates matrox
+#' \item X: covariates matrix
 #' \item y: response
 #' \item n: sample size
 #' \item p: dimension of covariates including the intercept
@@ -98,7 +98,7 @@ DiffA <- function(y, X, m, tau_n = 0, ind = 2L) {
 #' @export
 #' @name Heter_LRV
 #' @title Long-run covariance matrix estimators
-#' @description \loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariante.
+#' @description \loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariates.
 #' @param e, vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).
 #' @param X, a matrix \mjseqn{n\times p}
 #' @param m, integer, the window size.
@@ -190,7 +190,7 @@ gcv_cov <- function(bw, t, y, X, verbose = 1L) {
 #' @param ind, integer, the type of kernel,  see also Heter_LRV
 #' @param rescale, bool, whether to rescale when positiveness of the matrix is not obtained. default 0
 #' @seealso Heter_LRV
-#' @return matrix of critical values
+#' @return a matrix of critical values
 #' @examples
 #' ###with Long memory parameter 0.2
 #' param = list(d = -0.2, heter = 2,
@@ -269,6 +269,7 @@ MV_cov_heter <- function(e, X, gridm, gridtau, lrv_method = 0L, ind = 2L) {
 #' @param lrvmethod, integer, see also Heter_LRV
 #' @param ind, integer, the type of kernel,  see also Heter_LRV
 #' @param rescale, bool, whether to rescale when positiveness of the matrix is not obtained. default 0
+#' @return  a matrix of critical values
 #' @examples
 #' n = 300
 #' t = (1:n)/n

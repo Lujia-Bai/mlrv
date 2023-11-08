@@ -19,7 +19,7 @@ LocLinear(bw, t, y, X, db_kernel = 0L, deriv2 = 0L, scb = 0L)
 
 \item{deriv2}{bool,whether to return second-order derivative, default 0}
 
-\item{scb}{bool, whether to use the result for futher calculation of simultaneous confidence bands.}
+\item{scb}{bool, whether to use the result for further calculation of simultaneous confidence bands.}
 }
 \value{
 a list of results
@@ -29,7 +29,7 @@ a list of results
 \item X_reg: a matrix whose j'th row is \mjseqn{x_j^T\hat{M}(t_j)}
 \item t: 1:n/n
 \item bw: bandwidth used
-\item X: covariates matrox
+\item X: covariates matrix
 \item y: response
 \item n: sample size
 \item p: dimension of covariates including the intercept

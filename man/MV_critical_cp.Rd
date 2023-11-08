@@ -38,6 +38,9 @@ MV_critical_cp(
 
 \item{rescale, }{bool, whether to rescale when positiveness of the matrix is not obtained. default 0}
 }
+\value{
+a matrix of critical values
+}
 \description{
 Smoothing parameter selection for bootstrap tests for change point tests
 }
