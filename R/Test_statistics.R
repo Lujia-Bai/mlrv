@@ -244,9 +244,6 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 #' @description The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
 #' @param y a vector, the response variable.
 #' @param x a matrix of covariates. If the intercept should be includes, the elements of the first column should be 1.
-#' @param m a number, a rule-of-thumb and pilot choice of \eqn{m}.
-#' @param tau_n a number, a rule-of-thumb and pilot choice of \mjseqn{\tau_n}.
-#' @param bw a number, a rule-of-thumb and pilot choice of \mjseqn{b_n}.
 #' @return c(left, right), the vector with the left and right points of the interval
 #' @examples
 #' param = list(d = -0.2, heter = 2, tvd = 0,
