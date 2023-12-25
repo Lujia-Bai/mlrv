@@ -27,7 +27,13 @@ Heter_LRV(
 
 \item{lrv_method, }{the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)}
 
-\item{ind, }{types of kernels
+\item{ind, }{types of kernels}
+
+\item{print_deg, }{bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}}
+
+\item{rescale, }{bool, whether to use rescaling to correct the negative eigenvalues, default 0}
+
+\item{ncp, }{1 no change points, 0 possible change points
 \itemize{
 \item 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 \item 2 Epanechnikov kernel \mjseqn{3/4(1-u^{2})}, \mjseqn{u \le 1}
@@ -35,10 +41,6 @@ Heter_LRV(
 \item 4 Triweight \mjseqn{35/32(1-u^{2})^{3}}, \mjseqn{u \le 1}
 \item 5 Tricube  \mjseqn{70/81(1-|u|^{3})^{3}}, \mjseqn{u \le 1}
 }}
-
-\item{print_deg, }{bool, whether to print information of non-positiveness, default 0\mjseqn{n\times p}}
-
-\item{rescale, }{bool, whether to use rescaling to correct the negative eigenvalues, default 0}
 }
 \value{
 a cube. The time-varying long-run covariance matrix \mjseqn{p \times p \times n}, where \eqn{p} is the dimension of the time series vector, and \eqn{n} is the sample size.

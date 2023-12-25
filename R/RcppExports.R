@@ -105,6 +105,7 @@ DiffA <- function(y, X, m, tau_n = 0, ind = 2L) {
 #' @param tau_n, double, the smoothing parameter in the estimator. If tau_n is 0, a rule-of-thumb value will be automatically used.
 #' @param lrv_method, the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
 #' @param ind,  types of kernels
+#' @param ncp,  1 no change points, 0 possible change points
 #'* 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 #'* 2 Epanechnikov kernel \mjseqn{3/4(1-u^{2})}, \mjseqn{u \le 1}
 #'* 3 Quartic \mjseqn{15/16(1-u^{2})^{2}}, \mjseqn{u \le 1}
