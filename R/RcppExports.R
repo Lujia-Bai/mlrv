@@ -124,8 +124,8 @@ DiffA <- function(y, X, m, tau_n = 0, ind = 2L) {
 #' Bai, L., & Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
 #'
 #' Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
-Heter_LRV <- function(e, X, m, tau_n = 0, lrv_method = 1L, ind = 2L, print_deg = 0L, rescale = 0L) {
-    .Call(`_mlrv_Heter_LRV`, e, X, m, tau_n, lrv_method, ind, print_deg, rescale)
+Heter_LRV <- function(e, X, m, tau_n = 0, lrv_method = 1L, ind = 2L, print_deg = 0L, rescale = 0L, ncp = 0L) {
+    .Call(`_mlrv_Heter_LRV`, e, X, m, tau_n, lrv_method, ind, print_deg, rescale, ncp)
 }
 
 sim_Phi_heter <- function(data, B, sigma, R) {
@@ -251,8 +251,8 @@ MV_ise_heter <- function(lrv_cub, dim, n, neighbour) {
     .Call(`_mlrv_MV_ise_heter`, lrv_cub, dim, n, neighbour)
 }
 
-MV_cov_heter <- function(e, X, gridm, gridtau, lrv_method = 0L, ind = 2L) {
-    .Call(`_mlrv_MV_cov_heter`, e, X, gridm, gridtau, lrv_method, ind)
+MV_cov_heter <- function(e, X, gridm, gridtau, lrv_method = 0L, ind = 2L, ncp = 0L) {
+    .Call(`_mlrv_MV_cov_heter`, e, X, gridm, gridtau, lrv_method, ind, ncp)
 }
 
 #' @export

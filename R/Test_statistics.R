@@ -114,7 +114,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
   }
   # if(p>1) data$x[,-1] = foreach(i=2:p,.combine="cbind") %do% tv_center(0.2, n,data$x[, i])
 
-  gridtau = seq(n^(-5/29)*26/29, n^(-5/29)*34/29, by = 0.05)  #RATE CHANGE
+  gridtau = seq(n^(-2/15)*12/15, n^(-2/15)*15/15, by = 0.05)  #RATE CHANGE
   m = 7             ##defalt
   e = rep(0, n)
   t = (1 : n) / n
@@ -161,8 +161,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
     B_c = 100
     R_c = array(rnorm(n*p*B_c),dim = c(p,B_c,n))
 
-    if(lrvmethod == 0) y0 = e
-    else y0 = y
+    if(lrvmethod == 0) y0 = e else y0 = y
 
     critical = MV_critical(y0, result1, R_c, gridm, gridtau,
                            type = which(type == c("KPSS","RS","VS","KS")),
@@ -216,15 +215,15 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
     sc = 0
     sc = n-2*floor(n*bw) #sample cut
     s <- cumsum(e[(floor(n*bw) + 1):(n-floor(n*bw))])
-      if(type == "KPSS"){
-        eta <- sum(s^2)/(n*sc)
-      }else if (type == "VS"){
-        eta <- (sum(s^2) - (sum(s))^2/sc)/(n*sc)
-      }else if(type == "RS"){
-        eta <- max(s) - min(s)
-      }else if(type == "KS"){
-        eta <- max(abs(s))
-      }
+    if(type == "KPSS"){
+      eta <- sum(s^2)/(n*sc)
+    }else if (type == "VS"){
+      eta <- (sum(s^2) - (sum(s))^2/sc)/(n*sc)
+    }else if(type == "RS"){
+      eta <- max(s) - min(s)
+    }else if(type == "KS"){
+      eta <- max(abs(s))
+    }
     # print(sc)
 
     if(verbose_dist){
@@ -260,45 +259,51 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 #'
 #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
 #' @export
-rule_of_thumb<-function(y, x,
-                        m = floor(n^(4/15)),
-                        tau_n= n^(-5/29),
-                        bw = n^(-1/5)){
-  # esimation of lrv: lrv_method =1 similar to rb_fast
-  p = ncol(x)
-  n = nrow(x)
-  t = (1:n)/n
-  result1 = LocLinear(bw, t, y, x, deriv2 = 1)
-  result2 = LocLinear(bw/sqrt(2), t, y, x)
-  i = NULL
+  rule_of_thumb<-function(y, x){
+    # esimation of lrv: lrv_method =1 similar to rb_fast
+    p = ncol(x)
+    n = nrow(x)
+    t = (1:n)/n
 
-  sigma = Diff1(y, x, m, tau_n)
-  if(p > 1){
-    Ajmc = DiffX(x, m , tau_n )
-    Ajmb = DiffA(y, x, m, tau_n )
-    beta  = foreach(i=1:n, .combine = 'rbind') %do% solve(Ajmc[,,i],Ajmb[,,i])
-    xb = foreach(i=1:n,.combine='c') %do% (t(x[i,])%*%beta[i,])
-    Ajmhat = Diff1(xb, x, m, tau_n)
-    lrv = sigma - Ajmhat
-  }else{
-    lrv = sigma
-  }
-  lrv[lrv<0] = 0 # thresholding
-  trace_int = apply(lrv, c(1,2), mean)%>%diag()%>%sum()
+    m = floor(n^(4/15))
+    tau_n= n^(-2/15)
+    bw = n^(-1/5)
 
-  b2_int = result1$b2
-  phi0 = 3/5  # Epanechnikov
-  mu2 = 1/5   # Epanechnikov
+    result1 = LocLinear(bw, t, y, x, deriv2 = 1)
+    result2 = LocLinear(bw/sqrt(2), t, y, x)
+    i = NULL
 
-  bopt.lb = (phi0*trace_int/(mu2^2*b2_int))^(1/5)*n^(-1/4)
-  bopt.ub = (phi0*trace_int/(mu2^2*b2_int))^(1/5)*n^(-1/6)
-  if(bopt.ub > 0.3){
-    bopt.ub = 2/3 * n^(-1/6)
-    bopt.lb = 1/2 * n^(-1/4)
-  }
+    sigma = Diff1(y, x, m, tau_n)
+    if(p > 1){
+      Ajmc = DiffX(x, m , tau_n^(3.0/2))
+      Ajmb = DiffA(y, x, m, tau_n^(3.0/2))
+      beta  = foreach(i=1:n, .combine = 'rbind') %do% solve(Ajmc[,,i],Ajmb[,,i])
+      xb = foreach(i=1:n,.combine='c') %do% (t(x[i,])%*%beta[i,])
+      Ajmhat = Diff1(xb, x, m, tau_n)
+      lrv = sigma - Ajmhat
+    }else{
+      lrv = sigma
+    }
+    lrv[lrv<0] = 0 # thresholding
+    trace_int = apply(lrv, c(1,2), mean)%>%diag()%>%sum()
 
-  return(c(bopt.lb, bopt.ub))
+    b2_int = result1$b2
+    phi0 = 3/5  # Epanechnikov
+    mu2 = 1/5   # Epanechnikov
+
+    bopt.lb = (phi0*trace_int/(mu2^2*b2_int))^(1/5)*n^(-1/4)
+    bopt.ub = (phi0*trace_int/(mu2^2*b2_int))^(1/5)*n^(-1/6)
+    if(bopt.ub > 0.3){
+      bopt.ub = 2/3 * n^(-1/6)
+      bopt.lb = 1/2 * n^(-1/4)
+    }
+
+    return(c(bopt.lb, bopt.ub))
 }
+
+
+
+
 
 
 
@@ -312,7 +317,7 @@ rule_of_thumb<-function(y, x,
 #' @param hyper whether to only print the selected values of the smoothing parameters,\mjseqn{m} and \mjseqn{\tau_n}, default FALSE.
 #' @details param
 #'* B, the number of bootstrap simulation, say 2000
-#'*lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
+#'* lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
 #'* gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression, which will not be used when lrvmethod is -1, 1 or 2.
 #'* neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 #'* lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
@@ -397,7 +402,7 @@ heter_gradient <- function(data, param, mvselect = -1, verbose_dist = FALSE, hyp
 
   ##################  MV method #########################
   if(lrvmethod %in% c(-1, 1, 2)){
-    gridtau = seq(n^(-5/29)*26/29, n^(-5/29)*34/29, by = 0.05)
+    gridtau = seq(n^(-2/15)*12/15, n^(-2/15)*15/15, by = 0.05)
   }else{
     gridtau = seq(n^(-1/7)*4/7, n^(-1/7)*6/7, by = 0.05)
 
@@ -573,7 +578,7 @@ lrv_measure <- function(data, param, lrvmethod, mvselect = -1, tau = 0, verbose_
 
   #  for(lrvmethod in c(-1, 0, 1)){
   if(lrvmethod == 1){
-    gridtau = seq(n^(-5/29)*26/29, n^(-5/29)*34/29, by = 0.05)
+    gridtau = seq(n^(-2/15)*9/15, n^(-2/15)*13/15, by = 0.05)
   }else{
     gridtau = seq(n^(-1/7)*4/7, n^(-1/7)*6/7, by = 0.05)
 

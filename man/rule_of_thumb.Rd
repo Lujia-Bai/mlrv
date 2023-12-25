@@ -4,7 +4,7 @@
 \alias{rule_of_thumb}
 \title{rule of thumb interval for the selection of smoothing parameter b}
 \usage{
-rule_of_thumb(y, x, m = floor(n^(4/15)), tau_n = n^(-5/29), bw = n^(-1/5))
+rule_of_thumb(y, x)
 }
 \arguments{
 \item{y}{a vector, the response variable.}

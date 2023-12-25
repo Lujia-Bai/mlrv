@@ -505,7 +505,7 @@ arma::cube Diff1(arma::vec e, arma::mat X, int m, double tau_n = 0, int ind = 2)
   vec eigval;
   mat eigvec;
 
-  if(!tau_n) tau_n = powf(n,-5/29);
+  if(!tau_n) tau_n = powf(n,-5.0/29);
   kernel_vector = Compute_kernel_vector(n, tau_n, 0, ind);
 
   L.zeros();
@@ -685,7 +685,7 @@ arma::cube DiffX(arma::mat X, int m, double tau_n = 0, int ind = 2)
   vec eigval;
   mat eigvec;
 
-  if(!tau_n) tau_n = powf(n,-5/29);
+  if(!tau_n) tau_n = powf(n,-5.0/29);
   kernel_vector = Compute_kernel_vector(n, tau_n, 0, ind);
 
   L.zeros();
@@ -734,8 +734,7 @@ arma::cube DiffX(arma::mat X, int m, double tau_n = 0, int ind = 2)
 }
 
 // [[Rcpp::export]]
-arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
-{
+arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2){
   int n = X.n_rows;
   int p = X.n_cols;
   double regular_factor;
@@ -745,7 +744,7 @@ arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
   vec eigval;
   mat eigvec;
 
-  if(!tau_n) tau_n = powf(n,-5/29);
+  if(!tau_n) tau_n = powf(n,-5.0/29);
   kernel_vector = Compute_kernel_vector(n, tau_n, 0, ind);
 
   L.zeros();
@@ -796,6 +795,71 @@ arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
   return(sigma);//Sigma2
 }
 
+
+//
+// // [[Rcpp::export]]
+// arma::cube DiffAn(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
+// {
+//   int n = X.n_rows;
+//   int p = X.n_cols;
+//   double regular_factor;
+//   arma::cube all_delta2(p, 1, n);
+//   arma::cube sigma(p, 1, n);
+//   arma::vec tmpL(p),tmpL1(p), L(p);
+//   arma::mat tmp(p,p), tmp1(p,p);
+//   vec eigval;
+//   mat eigvec;
+//   // arma::vec kernel_vector(n);
+//
+//   if(!tau_n) tau_n = powf(n,-5/29);
+//   // kernel_vector = Compute_kernel_vector(n, tau_n, 0, ind);
+//
+//   L.zeros();
+//
+//   for(int j = 0; j < m; j++)
+//   { //e=y
+//     tmp = X.row(j + m).t() *  X.row(j + m) - X.row(j).t() *  X.row(j);
+//     tmpL = y(j + m) * X.row(j + m).t()- y(j) * X.row(j).t();
+//     L = L +  tmp*tmpL;
+//   }
+//   for(int j = m - 1  ; j < n - m ; j++)//j needs  conversion starts from 0
+//   {
+//     //std::cout<<j<<endl;
+//     if(j > m - 1){
+//       tmp = X.row(j + m).t() *  X.row(j + m) - X.row(j).t() *  X.row(j);
+//       tmpL = y(j + m) * X.row(j + m).t() - y(j) * X.row(j).t();
+//       tmp1 = X.row(j).t() *  X.row(j) - X.row(j-m).t() *  X.row(j-m);
+//       tmpL1 = y(j) * X.row(j).t() - y(j-m) * X.row(j-m).t();
+//       L = L  + tmp*tmpL - tmp1*tmpL1;
+//     }
+//     // std::cout<<arma::size(all_delta2.slice(j))<<endl;
+//     // std::cout<<arma::size(L * L.t())<<endl;
+//     all_delta2.slice(j) = L / 2;
+//   }
+//   //std::cout<<all_delta2[m-1]<<endl;
+//   for(int j = 0; j < m - 1; j++) all_delta2.slice(j) = all_delta2.slice(m-1);
+//   for(int j = n - m; j < n; j++) all_delta2.slice(j) = all_delta2.slice(n - m -1);
+//   // sigma.zeros();//t=(i+1.0)/n
+//   for(int i = m - 1 ; i < n - m; i++){
+//     regular_factor = 2*m+1;
+//     for(int j = i - m; j <= i + m; j++)//j needs no conversion starts from m
+//     {//all_delta2[j] is \Delta_j^2
+//       if(j > 0 && j < n){
+//         // sigma.slice(i)+= all_delta2.slice(j) * kernel_vector[abs(j - i)];
+//         sigma.slice(i) += all_delta2.slice(j);
+//         // regular_factor += kernel_vector[abs(j - i)];
+//       }
+//     }
+//     sigma.slice(i) = sigma.slice(i)/regular_factor;
+//     // sigma.slice(i) = sqrtmat_sympd(sigma.slice(i)/regular_factor);
+//     // sigma.slice(i) = all_delta2.slice(i);
+//   }
+//
+//   for(int i = 0; i < m -1; i++) sigma.slice(i) = sigma.slice(m - 1);
+//   for(int i = n - m ; i < n; i++) sigma.slice(i) = sigma.slice(n - m - 1);
+//
+//   return(all_delta2);
+// }
 //' @export
 //' @name Heter_LRV
 //' @title Long-run covariance matrix estimators
@@ -827,17 +891,23 @@ arma::cube DiffA(arma::vec y, arma::mat X, int m, double tau_n = 0, int ind = 2)
 //' Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 // [[Rcpp::export]]
 arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n = 0,
-                     int lrv_method = 1, int ind = 2, bool print_deg = 0, bool rescale = 0){
+                     int lrv_method = 1, int ind = 2, bool print_deg = 0, bool rescale = 0, bool ncp = 0){
   int n = X.n_rows;
   int p = X.n_cols;
   double regular_factor = 1;
   double rescale_factor = 1;
+  double tau1;
   int count_deg = 0;
   arma::cube sigma(p, p, n);
   vec eigval;
   mat eigvec;
 
-  if(!tau_n) tau_n = powf(n,-5/29);
+  if(!tau_n) tau_n = powf(n,-2/15.0);
+  if(ncp){
+    tau1 = tau_n;
+  }else{
+    tau1 = powf(tau_n, 3.0/2);
+  }
 
 
   if(lrv_method == 4){// difference-based with no correction
@@ -858,7 +928,7 @@ arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n = 0,
     List result;
     mat beta0(n,p);
     // e is y here
-    sigma = Diff1(e, X, m, tau_n, ind);
+    sigma = Diff1(e, X, m, tau1, ind);
     if(p > 1){
       Ajmc = DiffX(X, m, tau_n, ind);
       Ajmb = DiffA(e, X, m, tau_n, ind);
@@ -867,7 +937,7 @@ arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n = 0,
         beta = beta0.row(i).t();
         xb(i) = dot(X.row(i), beta);
       }
-      Ajmhat = Diff1(xb, X, m, tau_n, ind);
+      Ajmhat = Diff1(xb, X, m, tau1, ind);
       sigma = sigma - Ajmhat;
     }
 
@@ -882,8 +952,8 @@ arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n = 0,
   arma::cube Ajmhat(p,p,n), Ajmc(p, p, n), Ajmb(p,1,n);
   vec xb(n), beta(p), res(n);
   // e is y here
-  Ajmc = DiffX(X, m , tau_n, ind);
-  Ajmb = DiffA(e, X, m, tau_n, ind);
+  Ajmc = DiffX(X, m , tau1, ind);
+  Ajmb = DiffA(e, X, m, tau1, ind);
   for(int i = 0; i < n; i++){
     beta = inv(Ajmc.slice(i)) * Ajmb.slice(i);
     xb(i) = dot(X.row(i), beta);
@@ -899,8 +969,8 @@ arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n = 0,
     // e is y here
     sigma = Diff1(e, X, m, tau_n, ind);
     if(p > 1){
-      Ajmc = DiffX(X, m , tau_n, ind);
-      Ajmb = DiffA(e, X, m, tau_n, ind);
+      Ajmc = DiffX(X, m , tau1, ind);
+      Ajmb = DiffA(e, X, m, tau1, ind);
       for(int i = 0; i < n; i++){
         beta = inv(Ajmc.slice(i)) * Ajmb.slice(i);
         xb(i) = dot(X.row(i), beta);
@@ -1521,14 +1591,22 @@ List MV_ise_heter(arma::cube lrv_cub, int dim, int n,int neighbour)
 
 
 arma::vec Heter_LRV2(arma::vec e, arma::mat X, int m, double tau_n = 0,
-                     int lrv_method = 0, int ind = 2){
+                     int lrv_method = 0, int ind = 2, bool ncp = 0){
   int n = X.n_rows;
   int p = X.n_cols;
   double regular_factor;
   arma::vec all_delta2(p* p *n), sigma(p* p * n);
   arma::cube sigma_c(p,p,n);
   arma::vec L(p), kernel_vector(n);
-  if(!tau_n) tau_n = powf(n,-1/5);
+  if(!tau_n) tau_n = powf(n,-2/15.0);
+  double tau1;
+
+  if(ncp){
+    tau1 = tau_n;
+  }else{
+    tau1 = powf(tau_n, 3.0/2);
+  }
+
   kernel_vector = Compute_kernel_vector(n, tau_n, 0, ind);
 
   L.zeros();
@@ -1542,8 +1620,8 @@ arma::vec Heter_LRV2(arma::vec e, arma::mat X, int m, double tau_n = 0,
     // e is y here
     sigma_c = Diff1(e, X, m, tau_n, ind);
     if(p > 1){
-      Ajmc = DiffX(X, m, tau_n, ind);
-      Ajmb = DiffA(e, X, m, tau_n, ind);
+      Ajmc = DiffX(X, m, tau1, ind);
+      Ajmb = DiffA(e, X, m, tau1, ind);
       beta0 = LocLinear_B(tau_n, t, e, X);
       // std::cout<<"beta0"<<endl;
       for(int i = 0; i < n; i++){
@@ -1559,8 +1637,8 @@ arma::vec Heter_LRV2(arma::vec e, arma::mat X, int m, double tau_n = 0,
     arma::cube Ajmhat(p,p,n), Ajmc(p, p, n), Ajmb(p,1,n);
     vec xb(n), beta(p), res(n);
     // e is y here
-    Ajmc = DiffX(X, m , tau_n );
-    Ajmb = DiffA(e, X, m, tau_n );
+    Ajmc = DiffX(X, m , tau1);
+    Ajmb = DiffA(e, X, m, tau1);
     for(int i = 0; i < n; i++){
       beta = inv(Ajmc.slice(i)) * Ajmb.slice(i);
       xb(i) = dot(X.row(i), beta);
@@ -1574,8 +1652,8 @@ arma::vec Heter_LRV2(arma::vec e, arma::mat X, int m, double tau_n = 0,
     // e is y here
     sigma_c = Diff1(e, X, m, tau_n, ind);
     if(p > 1){
-      Ajmc = DiffX(X, m , tau_n, ind);
-      Ajmb = DiffA(e, X, m, tau_n, ind);
+      Ajmc = DiffX(X, m , tau1, ind);
+      Ajmb = DiffA(e, X, m, tau1, ind);
       for(int i = 0; i < n; i++){
         beta = inv(Ajmc.slice(i)) * Ajmb.slice(i);
         xb(i) = dot(X.row(i), beta);
@@ -1626,7 +1704,7 @@ arma::vec Heter_LRV2(arma::vec e, arma::mat X, int m, double tau_n = 0,
 arma::cube MV_cov_heter(arma::vec e, arma::mat X,
                         Rcpp::IntegerVector gridm,
                         Rcpp::NumericVector gridtau,
-                        int lrv_method = 0, int ind = 2)
+                        int lrv_method = 0, int ind = 2, bool ncp = 0)
 {
   int n = e.size();
   int dim = X.n_cols;
@@ -1637,7 +1715,7 @@ arma::cube MV_cov_heter(arma::vec e, arma::mat X,
   for(int p = 0; p < M; p++){
     for(int q = 0; q < Tau; q++){
       // std::cout<<p<<q<<endl;
-      lrv_cub.subcube(p,q,0,p,q,n*dim*dim-1) = Heter_LRV2(e, X, gridm[p], gridtau[q], lrv_method, ind);
+      lrv_cub.subcube(p,q,0,p,q,n*dim*dim-1) = Heter_LRV2(e, X, gridm[p], gridtau[q], lrv_method, ind, ncp);
     }
   }
   return(lrv_cub);

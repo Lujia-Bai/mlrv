@@ -103,8 +103,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // Heter_LRV
-arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n, int lrv_method, int ind, bool print_deg, bool rescale);
-RcppExport SEXP _mlrv_Heter_LRV(SEXP eSEXP, SEXP XSEXP, SEXP mSEXP, SEXP tau_nSEXP, SEXP lrv_methodSEXP, SEXP indSEXP, SEXP print_degSEXP, SEXP rescaleSEXP) {
+arma::cube Heter_LRV(arma::vec e, arma::mat X, int m, double tau_n, int lrv_method, int ind, bool print_deg, bool rescale, bool ncp);
+RcppExport SEXP _mlrv_Heter_LRV(SEXP eSEXP, SEXP XSEXP, SEXP mSEXP, SEXP tau_nSEXP, SEXP lrv_methodSEXP, SEXP indSEXP, SEXP print_degSEXP, SEXP rescaleSEXP, SEXP ncpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -116,7 +116,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type ind(indSEXP);
     Rcpp::traits::input_parameter< bool >::type print_deg(print_degSEXP);
     Rcpp::traits::input_parameter< bool >::type rescale(rescaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(Heter_LRV(e, X, m, tau_n, lrv_method, ind, print_deg, rescale));
+    Rcpp::traits::input_parameter< bool >::type ncp(ncpSEXP);
+    rcpp_result_gen = Rcpp::wrap(Heter_LRV(e, X, m, tau_n, lrv_method, ind, print_deg, rescale, ncp));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -239,8 +240,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // MV_cov_heter
-arma::cube MV_cov_heter(arma::vec e, arma::mat X, Rcpp::IntegerVector gridm, Rcpp::NumericVector gridtau, int lrv_method, int ind);
-RcppExport SEXP _mlrv_MV_cov_heter(SEXP eSEXP, SEXP XSEXP, SEXP gridmSEXP, SEXP gridtauSEXP, SEXP lrv_methodSEXP, SEXP indSEXP) {
+arma::cube MV_cov_heter(arma::vec e, arma::mat X, Rcpp::IntegerVector gridm, Rcpp::NumericVector gridtau, int lrv_method, int ind, bool ncp);
+RcppExport SEXP _mlrv_MV_cov_heter(SEXP eSEXP, SEXP XSEXP, SEXP gridmSEXP, SEXP gridtauSEXP, SEXP lrv_methodSEXP, SEXP indSEXP, SEXP ncpSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -250,7 +251,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type gridtau(gridtauSEXP);
     Rcpp::traits::input_parameter< int >::type lrv_method(lrv_methodSEXP);
     Rcpp::traits::input_parameter< int >::type ind(indSEXP);
-    rcpp_result_gen = Rcpp::wrap(MV_cov_heter(e, X, gridm, gridtau, lrv_method, ind));
+    Rcpp::traits::input_parameter< bool >::type ncp(ncpSEXP);
+    rcpp_result_gen = Rcpp::wrap(MV_cov_heter(e, X, gridm, gridtau, lrv_method, ind, ncp));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -295,7 +297,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mlrv_Diff1", (DL_FUNC) &_mlrv_Diff1, 5},
     {"_mlrv_DiffX", (DL_FUNC) &_mlrv_DiffX, 4},
     {"_mlrv_DiffA", (DL_FUNC) &_mlrv_DiffA, 5},
-    {"_mlrv_Heter_LRV", (DL_FUNC) &_mlrv_Heter_LRV, 8},
+    {"_mlrv_Heter_LRV", (DL_FUNC) &_mlrv_Heter_LRV, 9},
     {"_mlrv_sim_Phi_heter", (DL_FUNC) &_mlrv_sim_Phi_heter, 4},
     {"_mlrv_sim_Phi_heter_RS", (DL_FUNC) &_mlrv_sim_Phi_heter_RS, 4},
     {"_mlrv_sim_Phi_heter_KS", (DL_FUNC) &_mlrv_sim_Phi_heter_KS, 4},
@@ -304,7 +306,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mlrv_MV_critical", (DL_FUNC) &_mlrv_MV_critical, 11},
     {"_mlrv_MV_ise_heter_critical", (DL_FUNC) &_mlrv_MV_ise_heter_critical, 2},
     {"_mlrv_MV_ise_heter", (DL_FUNC) &_mlrv_MV_ise_heter, 4},
-    {"_mlrv_MV_cov_heter", (DL_FUNC) &_mlrv_MV_cov_heter, 6},
+    {"_mlrv_MV_cov_heter", (DL_FUNC) &_mlrv_MV_cov_heter, 7},
     {"_mlrv_MV_critical_cp", (DL_FUNC) &_mlrv_MV_critical_cp, 10},
     {"_mlrv_Ctvfdiff", (DL_FUNC) &_mlrv_Ctvfdiff, 3},
     {NULL, NULL, 0}

@@ -27,7 +27,7 @@ p-value of the structural stability test
 param
 \itemize{
 \item B, the number of bootstrap simulation, say 2000
-*lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
+\item lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
 \item gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression, which will not be used when lrvmethod is -1, 1 or 2.
 \item neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 \item lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection

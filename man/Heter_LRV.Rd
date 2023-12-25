@@ -12,7 +12,8 @@ Heter_LRV(
   lrv_method = 1L,
   ind = 2L,
   print_deg = 0L,
-  rescale = 0L
+  rescale = 0L,
+  ncp = 0L
 )
 }
 \arguments{
