@@ -1,3 +1,3 @@
-# mlrv 0.1.0
+# mlrv 0.1.1
 
-* Initial CRAN submission.
+* fixing some issues, supporting wider bandwidths when there are no change points.

@@ -1,7 +1,7 @@
 Package: mlrv
 Type: Package
 Title: Long-Run Variance Estimation in Time Series Regression
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person(given = "Lujia", 
          family = "Bai",
          role = c("aut", "cre"), 
@@ -32,7 +32,9 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 RdMacros: mathjaxr
 Config/testthat/edition: 3
+Language: en-US

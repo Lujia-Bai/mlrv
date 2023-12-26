@@ -9,4 +9,4 @@ I indeed tried to fix this note by removing RcppArmadillo from Depends/Imports, 
 
 * This is a new release.
 
-* add examples
+
