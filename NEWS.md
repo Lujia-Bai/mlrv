@@ -1,3 +1,3 @@
-# mlrv 0.1.1
+# mlrv 0.1.2
 
-* fixing some issues, supporting wider bandwidths when there are no change points.
+* fixing some issue on Debian

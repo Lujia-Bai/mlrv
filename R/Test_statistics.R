@@ -20,7 +20,7 @@
 #'* lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 #'* ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 #'* bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
-#'* tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-1/5}} will be used
+#'* tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{\tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-2/15}} will be used
 #'* type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
 #'* ind,  types of kernels
 #'* 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}

@@ -157,7 +157,7 @@ arma::vec locLinSmootherC (double bw, int n, arma::vec x, arma::vec y, bool db_k
     }
     den = (s2*s0 - s1*s1);
 
-    if(abs(den)> TOLERANCE)
+    if(fabs(den)> TOLERANCE)
     {
       beta0[i] = (s2*t0 - s1*t1)/den;
     }
@@ -1190,9 +1190,9 @@ arma::vec sim_Phi_heter_KS(List data,
     tmp = sigma.slice(r)(0,0) * R.slice(r).row(0);//1*B
     s2 = s2 + tmp.t() - K_bias.t(); ;//B*1
     if(r == m){
-      maxs = abs(s2);
+      maxs = arma::abs(s2);
     }else{
-      maxs = (abs(s2) > maxs)%abs(s2) + (abs(s2) <= maxs)%maxs;
+      maxs = (arma::abs(s2) > maxs)%arma::abs(s2) + (arma::abs(s2) <= maxs)%maxs;
     }
   }
   KS_dist = maxs ;

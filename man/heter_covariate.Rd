@@ -46,7 +46,7 @@ param
 \item lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 \item ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 \item bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
-\item tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-1/5}} will be used
+\item tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{\tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-2/15}} will be used
 \item type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
 \item ind,  types of kernels
 \item 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
