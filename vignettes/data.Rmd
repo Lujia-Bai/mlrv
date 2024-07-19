@@ -16,8 +16,7 @@ library(mlrv)
 library(foreach)
 library(magrittr)
 
-load("../data/hk_data.RData")
-# data(hk_data)
+data(hk_data)
 colnames(hk_data) = c("SO2","NO2","Dust","Ozone","Temperature",
                       "Humidity","num_circu","num_respir","Hospital Admission",
                       "w1","w2","w3","w4","w5","w6")
