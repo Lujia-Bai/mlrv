@@ -23,7 +23,6 @@ Imports:
     RcppArmadillo,
     mathjaxr,
     xtable,
-    curl,
     stats
 LinkingTo:
     Rcpp,
