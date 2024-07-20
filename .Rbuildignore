@@ -3,6 +3,7 @@
 ^cran-comments\.md$
 ^\.github$
 ^README\.Rmd$
+^README\.md$
 ^LICENSE\.md$
 ^CRAN-SUBMISSION$
 ^.DS_Store$
