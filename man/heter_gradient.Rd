@@ -27,7 +27,7 @@ p-value of the structural stability test
 param
 \itemize{
 \item B, the number of bootstrap simulation, say 2000
-\item lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
+\item lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024)
 \item gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression, which will not be used when lrvmethod is -1, 1 or 2.
 \item neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 \item lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
@@ -54,7 +54,7 @@ param$lrvmethod = 1 # difference based
 heter_gradient(data, param, 4, 1)
 }
 \references{
-Bai, L., and Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 
 Wu, W., and Zhou, Z. (2018). Gradient-based structural change detection for nonstationary time series M-estimation. The Annals of Statistics, 46(3), 1197-1224.
 

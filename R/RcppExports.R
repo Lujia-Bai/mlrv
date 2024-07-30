@@ -99,11 +99,11 @@ DiffA <- function(y, X, m, tau_n = 0, ind = 2L) {
 #' @name Heter_LRV
 #' @title Long-run covariance matrix estimators
 #' @description \loadmathjax The function provides a wide range of estimators for the long-run covariance matrix estimation in non-stationary time series with covariates.
-#' @param e, vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).
+#' @param e, vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024).
 #' @param X, a matrix \mjseqn{n\times p}
 #' @param m, integer, the window size.
 #' @param tau_n, double, the smoothing parameter in the estimator. If tau_n is 0, a rule-of-thumb value will be automatically used.
-#' @param lrv_method, the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
+#' @param lrv_method, the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024)
 #' @param ind,  types of kernels
 #' @param ncp,  1 no change points, 0 possible change points
 #'* 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
@@ -122,7 +122,7 @@ DiffA <- function(y, X, m, tau_n = 0, ind = 2L) {
 #' data = Qct_reg(1000, param)
 #' sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
 #' @references
-#' Bai, L., & Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+#' Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 #'
 #' Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 Heter_LRV <- function(e, X, m, tau_n = 0, lrv_method = 1L, ind = 2L, print_deg = 0L, rescale = 0L, ncp = 0L) {
@@ -207,7 +207,7 @@ gcv_cov <- function(bw, t, y, X, verbose = 1L) {
 #' Rc = array(rnorm(n*p*B_c),dim = c(p,B_c,n))
 #' result1 = LocLinear(0.2, t, data$y, data$x)
 #' critical <- MV_critical(data$y, result1, Rc, c(3,4,5), c(0.2, 0.25, 0.3))
-#' @references #' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+#' @references Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 MV_critical <- function(y, data, R, gridm, gridtau, type = 1L, cvalue = 0.1, B = 100L, lrvmethod = 1L, ind = 2L, rescale = 0L) {
     .Call(`_mlrv_MV_critical`, y, data, R, gridm, gridtau, type, cvalue, B, lrvmethod, ind, rescale)
 }
@@ -243,7 +243,7 @@ MV_critical <- function(y, data, R, gridm, gridtau, type = 1L, cvalue = 0.1, B =
 #' mv_result = MV_ise_heter_critical(critical,  1)
 #' m = gridm[mv_result$minp + 1]
 #' tau_n = gridtau[mv_result$minq + 1]
-#' @references  Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+#' @references  Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 MV_ise_heter_critical <- function(critical, neighbour) {
     .Call(`_mlrv_MV_ise_heter_critical`, critical, neighbour)
 }
@@ -276,7 +276,7 @@ MV_cov_heter <- function(e, X, gridm, gridtau, lrv_method = 0L, ind = 2L, ncp = 
 #' t = (1:n)/n
 #' data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 #' critical = MV_critical_cp(data$y, data$x,t,  c(3,4,5), c(0.2,0.25, 0.3))
-#' @references  Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+#' @references  Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 MV_critical_cp <- function(y, X, t, gridm, gridtau, cvalue = 0.1, B = 100L, lrvmethod = 1L, ind = 2L, rescale = 0L) {
     .Call(`_mlrv_MV_critical_cp`, y, X, t, gridm, gridtau, cvalue, B, lrvmethod, ind, rescale)
 }

@@ -64,7 +64,7 @@ result1 = LocLinear(0.2, t, data$y, data$x)
 critical <- MV_critical(data$y, result1, Rc, c(3,4,5), c(0.2, 0.25, 0.3))
 }
 \references{
-#' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 }
 \seealso{
 Heter_LRV

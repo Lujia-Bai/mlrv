@@ -7,21 +7,21 @@
 #' @description  \loadmathjax Test for long memory of \mjseqn{e_i} in the time series regression \deqn{y_i = x_i \beta_i + e_i, 1\le i \le n} where \mjseqn{x_i} is the multivariate covariate process with first component 1, \mjseqn{\beta_i} is the functional coefficient, \mjseqn{e_i} is the error term which can be long memory. In particular,covariates and the error term are allowed to be dependent.
 #' @param data a list with the vector y and the matrix x, for example, list(x=...,y=...).
 #' @param param a list of parameters, list(B =..., lrvmethod =...,gcv = ..., neighbour =..., lb = ..., ub = ..., tau_n = ..., type = ..., ind = ...)
-#' @param mvselect the value of moving window parameter \mjseqn{m}. In addition, mvselect=-1 provides data-driven smoothing parameters via Minimum Volatility of the long-run covariance estimator as proposed in Chapter 9 of Politis et al.(1999), while mvselect = -2 provides data-driven smoothing parameters via Minimum Volatility of the bootstrap statistics, see Bai and Wu (2023a).
+#' @param mvselect the value of moving window parameter \mjseqn{m}. In addition, mvselect=-1 provides data-driven smoothing parameters via Minimum Volatility of the long-run covariance estimator as proposed in Chapter 9 of Politis et al.(1999), while mvselect = -2 provides data-driven smoothing parameters via Minimum Volatility of the bootstrap statistics, see Bai and Wu (2024a).
 #' @param bw the bandwidth parameter in the local linear regression, default 0.2.
 #' @param shift modify bw by a factor, default 1.
 #' @param verbose_dist whether to print intermediate results, i.e., the bootstrap distribution and statistics, default FALSE.
 #' @param hyper whether to only print the selected values of the smoothing parameters,\mjseqn{m} and \mjseqn{\tau_n}, default FALSE.
 #' @details param
 #'* B, the number of bootstrap simulation, say 2000
-#'*lrvmethod,  the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023b), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023b)
+#'*lrvmethod,  the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024b), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024b)
 #'* gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression
 #'* neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 #'* lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 #'* ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 #'* bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
 #'* tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{\tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-2/15}} will be used
-#'* type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
+#'* type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2024a).
 #'* ind,  types of kernels
 #'* 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 #'* 2 Epanechnikov kernel \mjseqn{3/4(1 - u^{2})}, \mjseqn{u \le 1}
@@ -39,9 +39,9 @@
 #' heter_covariate(data, list(B=20, lrvmethod = 1,
 #' gcv = 1, neighbour = 1, lb = 3, ub = 11, type = "KPSS"), mvselect = -2, verbose_dist = TRUE)
 #' @references
-#' Bai, L., and Wu, W. (2023a). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+#' Bai, L., & Wu, W. (2024a). Detecting long-range dependence for time-varying linear models. Bernoulli, 30(3), 2450-2474.
 #'
-#' Bai, L., and Wu, W. (2023b). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+#' Bai, L., & Wu, W. (2024b). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 #'
 #' Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 #'
@@ -241,7 +241,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 
 
 #' @title rule of thumb interval for the selection of smoothing parameter b
-#' @description The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
+#' @description The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2024) .
 #' @param y a vector, the response variable.
 #' @param x a matrix of covariates. If the intercept should be includes, the elements of the first column should be 1.
 #' @return c(left, right), the vector with the left and right points of the interval
@@ -254,7 +254,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 #' rule_of_thumb(data$y, data$x)
 #' @references
 #'
-#' Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+#' Bai, L., & Wu, W. (2024). Detecting long-range dependence for time-varying linear models. Bernoulli, 30(3), 2450-2474.
 #' @export
   rule_of_thumb<-function(y, x){
     # esimation of lrv: lrv_method =1 similar to rb_fast
@@ -314,7 +314,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 #' @param hyper whether to only print the selected values of the smoothing parameters,\mjseqn{m} and \mjseqn{\tau_n}, default FALSE.
 #' @details param
 #'* B, the number of bootstrap simulation, say 2000
-#'* lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)
+#'* lrvmethod  the method of long-run variance estimation, lrvmethod = -1 uses the ols plug-in estimator as in Wu and Zhou (2018), lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024)
 #'* gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression, which will not be used when lrvmethod is -1, 1 or 2.
 #'* neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 #'* lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
@@ -339,7 +339,7 @@ heter_covariate<- function(data, param=list(B=2000, lrvmethod = 1, gcv = 1, neig
 #' param$lrvmethod = 1 # difference based
 #' heter_gradient(data, param, 4, 1)
 #' @references
-#' Bai, L., and Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+#' Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 #'
 #' Wu, W., and Zhou, Z. (2018). Gradient-based structural change detection for nonstationary time series M-estimation. The Annals of Statistics, 46(3), 1197-1224.
 #'

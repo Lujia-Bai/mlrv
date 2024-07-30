@@ -15,7 +15,7 @@ rule_of_thumb(y, x)
 c(left, right), the vector with the left and right points of the interval
 }
 \description{
-The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2023) . \loadmathjax
+The function will compute a data-driven interval for the Generalized Cross Validation performed later, see also Bai and Wu (2024) .
 }
 \examples{
 param = list(d = -0.2, heter = 2, tvd = 0,
@@ -26,5 +26,5 @@ data = Qct_reg(1000, param)
 rule_of_thumb(data$y, data$x)
 }
 \references{
-Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+Bai, L., & Wu, W. (2024). Detecting long-range dependence for time-varying linear models. Bernoulli, 30(3), 2450-2474.
 }

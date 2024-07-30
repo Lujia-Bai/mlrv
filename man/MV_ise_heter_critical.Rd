@@ -43,5 +43,5 @@ m = gridm[mv_result$minp + 1]
 tau_n = gridtau[mv_result$minq + 1]
 }
 \references{
-Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 }

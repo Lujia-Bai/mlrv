@@ -17,7 +17,7 @@ Heter_LRV(
 )
 }
 \arguments{
-\item{e, }{vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023).}
+\item{e, }{vector, if the plug-in estimator is used, e should be the vector of residuals, OLS or nonparametric ones. If the difference-based debiased method is adopted, e should be the response time series, i.e., \mjseqn{y}. Specially, e should also be the response time series, i.e., \mjseqn{y}, if the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024).}
 
 \item{X, }{a matrix \mjseqn{n\times p}}
 
@@ -25,7 +25,7 @@ Heter_LRV(
 
 \item{tau_n, }{double, the smoothing parameter in the estimator. If tau_n is 0, a rule-of-thumb value will be automatically used.}
 
-\item{lrv_method, }{the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023)}
+\item{lrv_method, }{the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024)}
 
 \item{ind, }{types of kernels}
 
@@ -57,7 +57,7 @@ data = Qct_reg(1000, param)
 sigma = Heter_LRV(data$y, data$x, 3, 0.3, lrv_method = 1)
 }
 \references{
-Bai, L., & Wu, W. (2023). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 
 Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 }

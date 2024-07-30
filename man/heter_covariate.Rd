@@ -20,7 +20,7 @@ heter_covariate(
 
 \item{param}{a list of parameters, list(B =..., lrvmethod =...,gcv = ..., neighbour =..., lb = ..., ub = ..., tau_n = ..., type = ..., ind = ...)}
 
-\item{mvselect}{the value of moving window parameter \mjseqn{m}. In addition, mvselect=-1 provides data-driven smoothing parameters via Minimum Volatility of the long-run covariance estimator as proposed in Chapter 9 of Politis et al.(1999), while mvselect = -2 provides data-driven smoothing parameters via Minimum Volatility of the bootstrap statistics, see Bai and Wu (2023a).}
+\item{mvselect}{the value of moving window parameter \mjseqn{m}. In addition, mvselect=-1 provides data-driven smoothing parameters via Minimum Volatility of the long-run covariance estimator as proposed in Chapter 9 of Politis et al.(1999), while mvselect = -2 provides data-driven smoothing parameters via Minimum Volatility of the bootstrap statistics, see Bai and Wu (2024a).}
 
 \item{bw}{the bandwidth parameter in the local linear regression, default 0.2.}
 
@@ -40,14 +40,14 @@ p-value of the long memory test
 param
 \itemize{
 \item B, the number of bootstrap simulation, say 2000
-*lrvmethod,  the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2023b), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2023b)
+*lrvmethod,  the method of long-run variance estimation, lrvmethod = 0 uses the plug-in estimator in Zhou (2010), lrvmethod = 1 offers the debias difference-based estimator in Bai and Wu (2024b), lrvmethod = 2 provides the plug-in estimator using the \mjseqn{\breve{\beta}}, the pilot estimator proposed in Bai and Wu (2024b)
 \item gcv,  1 or 0, whether to use Generalized Cross Validation for the selection of \mjseqn{b}, the bandwidth parameter in the local linear regression
 \item neighbour, the number of neighbours in the extended minimum volatility, for example 1,2 or 3
 \item lb, the lower bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 \item ub,  the upper bound of the range of \mjseqn{m} in the extended minimum volatility Selection
 \item bw_set, the proposed grid of the range of bandwidth selection. if not presented, a rule of thumb method will be used for the data-driven range
 \item tau_n,  the value of \mjseqn{\tau} when no data-driven selection is used. if \mjseqn{\tau} is set to \mjseqn{0}, the rule of thumb \mjseqn{n^{-2/15}} will be used
-\item type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2023a).
+\item type, c( "KPSS","RS","VS","KS") type of tests, see  Bai and Wu (2024a).
 \item ind,  types of kernels
 \item 1 Triangular \mjseqn{1-|u|}, \mjseqn{u \le 1}
 \item 2 Epanechnikov kernel \mjseqn{3/4(1 - u^{2})}, \mjseqn{u \le 1}
@@ -72,9 +72,9 @@ heter_covariate(data, list(B=20, lrvmethod = 1,
 gcv = 1, neighbour = 1, lb = 3, ub = 11, type = "KPSS"), mvselect = -2, verbose_dist = TRUE)
 }
 \references{
-Bai, L., and Wu, W. (2023a). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+Bai, L., & Wu, W. (2024a). Detecting long-range dependence for time-varying linear models. Bernoulli, 30(3), 2450-2474.
 
-Bai, L., and Wu, W. (2023b). Difference-based covariance matrix estimate in time series nonparametric regression with applications to specification tests.
+Bai, L., & Wu, W. (2024b). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 
 Zhou, Z. and Wu, W. B. (2010). Simultaneous inference of linear models with time varying coefficients.J. R. Stat. Soc. Ser. B. Stat. Methodol., 72(4):513–531.
 

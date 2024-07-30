@@ -51,5 +51,5 @@ data = bregress2(n, 2, 1) # time series regression model with 2 changes points
 critical = MV_critical_cp(data$y, data$x,t,  c(3,4,5), c(0.2,0.25, 0.3))
 }
 \references{
-Bai, L., and Wu, W. (2023). Detecting long-range dependence for time-varying linear models. To appear in Bernoulli
+Bai, L., & Wu, W. (2024). Difference-based covariance matrix estimation in time series nonparametric regression with application to specification tests. Biometrika, asae013.
 }
